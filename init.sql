@@ -26,14 +26,13 @@ CREATE TABLE IF NOT EXISTS clinic.service(
 );
 
 CREATE TABLE IF NOT EXISTS clinic.pet_type(
-	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	title VARCHAR(255) NOT NULL
+	title VARCHAR(255) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS clinic.appointment(
 	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	date DATE NOT NULL,
-	status VARCHAR(255) DEFAULT 'New',
+	status VARCHAR(255) DEFAULT 'NEW',
 	doctor_id BIGINT NOT NULL,
 	service_id BIGINT NOT NULL,
 	customer_id BIGINT NOT NULL,
@@ -43,10 +42,9 @@ CREATE TABLE IF NOT EXISTS clinic.appointment(
 );
 
 CREATE TABLE IF NOT EXISTS clinic.breed(
-	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	title VARCHAR(255) NOT NULL,
-	type_id BIGINT NOT NULL,
-	CONSTRAINT fk_breed_type FOREIGN KEY (type_id) REFERENCES clinic.pet_type (id)
+	title VARCHAR(255) NOT NULL PRIMARY KEY,
+	pet_type VARCHAR(255) NOT NULL,
+	CONSTRAINT fk_breed_type FOREIGN KEY (pet_type) REFERENCES clinic.pet_type (title)
 );
 
 CREATE TABLE IF NOT EXISTS clinic.pet(
@@ -56,11 +54,11 @@ CREATE TABLE IF NOT EXISTS clinic.pet(
 	birthday DATE NOT NULL,
 	diagnosis VARCHAR(255) NOT NULL,
 	weight NUMERIC(7,2) NOT NULL,
-	type_id BIGINT NOT NULL,
-	breed_id BIGINT NOT NULL,
+	pet_type VARCHAR(255) NOT NULL,
+	breed VARCHAR(255) NOT NULL,
 	customer_id BIGINT NOT NULL,
-	CONSTRAINT fk_type_pet FOREIGN KEY (type_id) REFERENCES clinic.pet_type (id),
-	CONSTRAINT fk_breed_pet FOREIGN KEY (breed_id) REFERENCES clinic.breed (id),
+	CONSTRAINT fk_type_pet FOREIGN KEY (pet_type) REFERENCES clinic.pet_type (title),
+	CONSTRAINT fk_breed_pet FOREIGN KEY (breed) REFERENCES clinic.breed (title),
 	CONSTRAINT fk_customer_pet FOREIGN KEY (customer_id) REFERENCES clinic.customer (id)
 	
 );
