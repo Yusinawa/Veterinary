@@ -1,0 +1,66 @@
+BEGIN;
+CREATE USER admin WITH SUPERUSER;
+CREATE SCHEMA IF NOT EXISTS clinic AUTHORIZATION admin;
+
+CREATE TABLE IF NOT EXISTS clinic.doctor(
+	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	first_name VARCHAR(255) NOT NULL,
+	surname VARCHAR(255) NOT NULL,
+	phone VARCHAR(255) NOT NULL,
+	login VARCHAR(255) NOT NULL,
+	password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS clinic.customer(
+	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	first_name VARCHAR(255) NOT NULL,
+	surname VARCHAR(255) NOT NULL,
+	phone VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS clinic.service(
+	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	title VARCHAR(255) NOT NULL,
+	price NUMERIC(7,2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS clinic.pet_type(
+	title VARCHAR(255) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS clinic.appointment(
+	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	date DATE NOT NULL,
+	status VARCHAR(255) DEFAULT 'NEW',
+	doctor_id BIGINT NOT NULL,
+	service_id BIGINT NOT NULL,
+	customer_id BIGINT NOT NULL,
+	CONSTRAINT fk_doctor_appt FOREIGN KEY (doctor_id) REFERENCES clinic.doctor (id),
+	CONSTRAINT fk_service_appt FOREIGN KEY (service_id) REFERENCES clinic.service (id),
+	CONSTRAINT fk_customer_appt FOREIGN KEY (customer_id) REFERENCES clinic.customer (id)
+);
+
+CREATE TABLE IF NOT EXISTS clinic.breed(
+	title VARCHAR(255) NOT NULL PRIMARY KEY,
+	pet_type VARCHAR(255) NOT NULL,
+	CONSTRAINT fk_breed_type FOREIGN KEY (pet_type) REFERENCES clinic.pet_type (title)
+);
+
+CREATE TABLE IF NOT EXISTS clinic.pet(
+	id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nickname VARCHAR(255) NOT NULL,
+	gender VARCHAR(255) NOT NULL,
+	birthday DATE NOT NULL,
+	diagnosis VARCHAR(255) NOT NULL,
+	weight NUMERIC(7,2) NOT NULL,
+	pet_type VARCHAR(255) NOT NULL,
+	breed VARCHAR(255) NOT NULL,
+	customer_id BIGINT NOT NULL,
+	CONSTRAINT fk_type_pet FOREIGN KEY (pet_type) REFERENCES clinic.pet_type (title),
+	CONSTRAINT fk_breed_pet FOREIGN KEY (breed) REFERENCES clinic.breed (title),
+	CONSTRAINT fk_customer_pet FOREIGN KEY (customer_id) REFERENCES clinic.customer (id)
+	
+);
+
+COMMIT;
