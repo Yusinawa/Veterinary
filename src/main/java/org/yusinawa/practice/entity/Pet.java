@@ -14,11 +14,10 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pet {
-
     @Id
     private Long id;
     private String nickname;
@@ -26,7 +25,13 @@ public class Pet {
     private LocalDate birthday;
     private String diagnosis;
     private BigDecimal weight;
-    private String petType;
-    private String breed;
-    private Long customerId;
+    @ManyToOne
+    @JoinColumn(name = "pet_type")
+    private PetType petType;
+    @ManyToOne
+    @JoinColumn(name = "breed")
+    private Breed breed;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
 }

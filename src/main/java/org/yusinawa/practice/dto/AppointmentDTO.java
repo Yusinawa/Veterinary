@@ -4,12 +4,4 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-@Data
-public class AppointmentDTO {
-
-    private LocalDate date;
-    private String status;
-    private Long doctorId;
-    private Long serviceId;
-    private Long customerId;
-}
+public record AppointmentDTO (Long id, LocalDate date, String status, Long doctorId, Long serviceId, Long customerId){}

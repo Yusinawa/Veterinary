@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class PetType {
-
     @Id
     private String title;
 }

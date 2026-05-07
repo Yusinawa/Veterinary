@@ -2,11 +2,4 @@ package org.yusinawa.practice.dto;
 
 import lombok.Data;
 
-@Data
-public class CustomerDTO {
-
-    private String firstName;
-    private String surname;
-    private String phone;
-    private String email;
-}
+public record CustomerDTO (Long id, String firstName, String surname, String phone, String email){}

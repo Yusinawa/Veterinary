@@ -1,9 +1,6 @@
 package org.yusinawa.practice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +10,12 @@ import java.math.BigDecimal;
 
 
 @Entity
+@Table(name = "service")
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Service {
-
+public class VetService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

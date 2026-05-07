@@ -2,12 +2,4 @@ package org.yusinawa.practice.dto;
 
 import lombok.Data;
 
-@Data
-public class DoctorDTO {
-
-    private String firstName;
-    private String surname;
-    private String phone;
-    private String login;
-    private String password;
-}
+public record DoctorDTO (Long id, String firstName, String surname, String phone, String login, String password){}

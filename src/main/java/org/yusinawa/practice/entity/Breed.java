@@ -11,11 +11,13 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Breed {
     @Id
     private String title;
-    private String petType;
+    @ManyToOne
+    @JoinColumn(name = "pet_type")
+    private PetType petType;
 }
