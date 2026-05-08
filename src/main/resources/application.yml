@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/VeterinaryClinic
+    username: postgres
+    password: GitApPract
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        default_schema: clinic
+
+server:
+  port: 8081
