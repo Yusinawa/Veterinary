@@ -1,5 +1,13 @@
 package org.yusinawa.practice.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.With;
 
-public record PetTypeDTO (String title){}
+@With
+@Builder(toBuilder = true)
+public record PetTypeDTO (
+        String title
+){
+
+}

@@ -26,6 +26,6 @@ public class PetTypeController {
 
     @GetMapping("/{title}")
     public PetType getByTitle(@PathVariable String title){
-        return petTypeService.readByTitle(title);
+        return petTypeService.getById(title);
     }
 }

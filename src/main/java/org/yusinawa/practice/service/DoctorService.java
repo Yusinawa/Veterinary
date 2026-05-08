@@ -13,7 +13,7 @@ import java.util.List;
 public class DoctorService {
     private final DoctorRepository doctorRepository;
 
-    public Doctor readById(Long id){
+    public Doctor getById(Long id){
         return doctorRepository.findById(id).orElseThrow(() -> new RuntimeException("Doctor not found - " + id));
     }
 

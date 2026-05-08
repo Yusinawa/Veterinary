@@ -8,6 +8,4 @@ import org.yusinawa.practice.service.PetTypeService;
 import java.util.Optional;
 
 @Repository
-public interface PetTypeRepository extends JpaRepository<PetType, String> {
-    Optional<PetType> findByTitle(String title);
-}
+public interface PetTypeRepository extends JpaRepository<PetType, String> {}

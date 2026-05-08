@@ -12,8 +12,8 @@ import java.util.List;
 public class PetTypeService {
     private final PetTypeRepository petTypeRepository;
 
-    public PetType readByTitle(String title){
-        return petTypeRepository.findByTitle(title)
+    public PetType getById(String title){
+        return petTypeRepository.findById(title)
                 .orElseThrow(() -> new RuntimeException("Pet type not found - " + title));
     }
 

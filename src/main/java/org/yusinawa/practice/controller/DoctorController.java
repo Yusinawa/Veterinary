@@ -2,6 +2,7 @@ package org.yusinawa.practice.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yusinawa.practice.dto.DoctorDTO;
@@ -18,8 +19,9 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @PostMapping
-    public ResponseEntity<Doctor> create(@RequestBody DoctorDTO dto){
-        return new ResponseEntity<>(doctorService.create(dto), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public Doctor create(@RequestBody DoctorDTO dto){
+        return doctorService.create(dto);
     }
 
     @GetMapping
@@ -29,7 +31,7 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable Long id){
-        return doctorService.readById(id);
+        return doctorService.getById(id);
     }
 
     @PutMapping
@@ -38,8 +40,8 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus delete(@PathVariable Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
         doctorService.delete(id);
-        return HttpStatus.OK;
     }
 }

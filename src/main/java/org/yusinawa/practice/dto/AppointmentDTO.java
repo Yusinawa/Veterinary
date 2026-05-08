@@ -1,7 +1,23 @@
 package org.yusinawa.practice.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.With;
+import org.yusinawa.practice.entity.Customer;
+import org.yusinawa.practice.entity.Doctor;
+import org.yusinawa.practice.entity.VetService;
 
 import java.time.LocalDate;
 
-public record AppointmentDTO (Long id, LocalDate date, String status, Long doctorId, Long serviceId, Long customerId){}
+@With
+@Builder(toBuilder = true)
+public record AppointmentDTO (
+        Long id,
+        LocalDate date,
+        String status,
+        Doctor doctorId,
+        VetService serviceId,
+        Customer customerId
+){
+
+}
