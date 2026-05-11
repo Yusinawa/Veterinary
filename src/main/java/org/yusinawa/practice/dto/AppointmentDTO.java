@@ -1,7 +1,6 @@
 package org.yusinawa.practice.dto;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.With;
 import org.yusinawa.practice.entity.Customer;
 import org.yusinawa.practice.entity.Doctor;
@@ -15,9 +14,9 @@ public record AppointmentDTO (
         Long id,
         LocalDate date,
         String status,
-        Doctor doctorId,
-        VetService serviceId,
-        Customer customerId
+        Long doctor,
+        Long service,
+        Long customer
 ){
 
 }

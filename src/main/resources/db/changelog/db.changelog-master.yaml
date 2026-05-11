@@ -1,0 +1,227 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: yusi
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              schemaName: clinic
+              tableName: doctor
+      changes:
+        - createTable:
+            tableName: doctor
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: customer
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: service
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: numeric(7,2)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: pet_type
+            ifNotExists: true
+            columns:
+              - column:
+                  name: title
+                  type: varchar(255)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+        - createTable:
+            tableName: appointment
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: doctor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_doctor_appt
+                    referencedTableName: doctor
+                    referencedColumnNames: id
+              - column:
+                  name: service_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_service_appt
+                    referencedTableName: service
+                    referencedColumnNames: id
+              - column:
+                  name: customer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_customer_appt
+                    referencedTableName: customer
+                    referencedColumnNames: id
+        - createTable:
+            tableName: breed
+            ifNotExists: true
+            columns:
+              - column:
+                  name: title
+                  type: varchar(255)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: pet_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_breed_type
+                    referencedTableName: pet_type
+                    referencedColumnNames: title
+        - createTable:
+            tableName: pet
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: nickname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gender
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthday
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: diagnosis
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight
+                  type: numeric(7,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pet_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_type_pet
+                    referencedTableName: pet_type
+                    referencedColumnNames: title
+              - column:
+                  name: breed
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_breed_pet
+                    referencedTableName: breed
+                    referencedColumnNames: title
+              - column:
+                  name: customer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_customer_pet
+                    referencedTableName: customer
+                    referencedColumnNames: id
