@@ -23,8 +23,8 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> readAll(){
-        return new ResponseEntity<>(appointmentService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<Appointment>> getAll(){
+        return new ResponseEntity<>(appointmentService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

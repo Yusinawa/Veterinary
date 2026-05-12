@@ -23,8 +23,8 @@ public class PetController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pet>> readAll(){
-        return new ResponseEntity<>(petService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<Pet>> getAll(){
+        return new ResponseEntity<>(petService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

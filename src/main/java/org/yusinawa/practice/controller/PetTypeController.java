@@ -19,8 +19,8 @@ public class PetTypeController {
     private final PetTypeService petTypeService;
 
     @GetMapping
-    public ResponseEntity<List<PetType>> readAll(){
-        return new ResponseEntity<>(petTypeService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<PetType>> getAll(){
+        return new ResponseEntity<>(petTypeService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{title}")

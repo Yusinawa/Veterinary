@@ -23,8 +23,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Doctor>> readAll(){
-        return new ResponseEntity<>(doctorService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<Doctor>> getAll(){
+        return new ResponseEntity<>(doctorService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

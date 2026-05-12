@@ -16,8 +16,8 @@ public class VetServiceController {
     private final VetServicesService vetServicesService;
 
     @GetMapping
-    public ResponseEntity<List<VetService>> readAll(){
-        return new ResponseEntity<>(vetServicesService.readAll(),HttpStatus.OK);
+    public ResponseEntity<List<VetService>> getAll(){
+        return new ResponseEntity<>(vetServicesService.getAll(),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

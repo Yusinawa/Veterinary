@@ -23,8 +23,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> readAll(){
-        return new ResponseEntity<>(customerService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<Customer>> getAll(){
+        return new ResponseEntity<>(customerService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

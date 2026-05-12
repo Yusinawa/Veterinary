@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: init
       author: yusi
       preConditions:
         - onFail: MARK_RAN

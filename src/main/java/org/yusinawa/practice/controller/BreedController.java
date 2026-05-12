@@ -19,8 +19,8 @@ public class BreedController {
     private final BreedService breedService;
 
     @GetMapping
-    public ResponseEntity<List<Breed>> readAll(){
-        return new ResponseEntity<>(breedService.readAll(), HttpStatus.OK);
+    public ResponseEntity<List<Breed>> getAll(){
+        return new ResponseEntity<>(breedService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{title}")
