@@ -33,5 +33,5 @@ public class Pet {
     private Breed breed;
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
 }

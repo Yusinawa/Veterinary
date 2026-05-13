@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.security.Provider;
 import java.time.LocalDate;
 
 @Entity
@@ -24,11 +22,11 @@ public class Appointment {
     private String status;
     @ManyToOne
     @JoinColumn(name = "doctor_id")
-    private Doctor doctorId;
+    private Doctor doctor;
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private VetService serviceId;
+    private VetService service;
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
 }

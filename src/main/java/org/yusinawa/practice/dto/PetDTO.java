@@ -1,12 +1,7 @@
 package org.yusinawa.practice.dto;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.With;
-import org.springframework.cglib.core.Local;
-import org.yusinawa.practice.entity.Breed;
-import org.yusinawa.practice.entity.Customer;
-import org.yusinawa.practice.entity.PetType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,9 +15,9 @@ public record PetDTO (
         LocalDate birthday,
         String diagnosis,
         BigDecimal weight,
-        PetType petType,
-        Breed breed,
-        Customer customerId
+        String petType,
+        String breed,
+        Long customer
 ) {
 
 }
