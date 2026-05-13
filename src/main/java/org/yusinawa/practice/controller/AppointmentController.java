@@ -2,10 +2,8 @@ package org.yusinawa.practice.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yusinawa.practice.dto.AppointmentDTO;
-import org.yusinawa.practice.entity.Appointment;
 import org.yusinawa.practice.service.AppointmentService;
 
 import java.util.List;
@@ -18,28 +16,28 @@ public class AppointmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Appointment create(@RequestBody AppointmentDTO dto){
+    public AppointmentDTO create(@RequestBody AppointmentDTO dto){
         return appointmentService.create(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Appointment>> getAll(){
-        return new ResponseEntity<>(appointmentService.getAll(), HttpStatus.OK);
+    public List<AppointmentDTO> getAll(){
+        return appointmentService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointmentById(@PathVariable Long id){
+    public AppointmentDTO getAppointmentById(@PathVariable Long id){
         return appointmentService.getById(id);
     }
 
     @GetMapping("/doctor/{id}")
-    public ResponseEntity<List<Appointment>> findByDoctorId(@PathVariable Long id){
-        return new ResponseEntity<>(appointmentService.findByDoctorId(id), HttpStatus.OK);
+    public List<AppointmentDTO> findByDoctorId(@PathVariable Long id){
+        return appointmentService.findByDoctorId(id);
     }
 
     @PutMapping
-    public ResponseEntity<Appointment> update(@RequestBody Appointment appointment){
-        return new ResponseEntity<>(appointmentService.update(appointment), HttpStatus.OK);
+    public AppointmentDTO update(@RequestBody AppointmentDTO dto){
+        return appointmentService.update(dto);
     }
 
     @DeleteMapping("/{id}")

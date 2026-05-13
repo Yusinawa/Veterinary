@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.yusinawa.practice.dto.CustomerDTO;
 import org.yusinawa.practice.entity.Customer;
+import org.yusinawa.practice.mapper.CustomerMapper;
 import org.yusinawa.practice.repository.CustomerRepository;
 import org.yusinawa.practice.service.CustomerService;
 
@@ -13,31 +14,33 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
     @Override
-    public Customer getById(Long id){
-        return customerRepository.findById(id)
+    public CustomerDTO getById(Long id){
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found - " + id));
+        return customerMapper.toDTO(customer);
     }
 
     @Override
-    public Customer create(CustomerDTO dto){
-        return customerRepository.save(Customer.builder()
-                .firstName(dto.firstName())
-                .surname(dto.surname())
-                .phone(dto.phone())
-                .email(dto.email())
-                .build());
+    public CustomerDTO create(CustomerDTO dto){
+        Customer customer = customerMapper.toEntity(dto);
+        Customer savedCustomer = customerRepository.save(customer);
+        return customerMapper.toDTO(savedCustomer);
     }
 
     @Override
-    public List<Customer> getAll(){
-        return customerRepository.findAll();
+    public List<CustomerDTO> getAll(){
+        List<Customer> customers = customerRepository.findAll();
+        return customerMapper.toDTOList(customers);
     }
 
     @Override
-    public Customer update(Customer customer){
-        return customerRepository.save(customer);
+    public CustomerDTO update(CustomerDTO dto){
+        Customer customer = customerMapper.toEntity(dto);
+        Customer updatedCustomer = customerRepository.save(customer);
+        return customerMapper.toDTO(updatedCustomer);
     }
 
     @Override

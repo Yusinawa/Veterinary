@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.yusinawa.practice.dto.DoctorDTO;
 import org.yusinawa.practice.entity.Doctor;
+import org.yusinawa.practice.mapper.DoctorMapper;
 import org.yusinawa.practice.repository.DoctorRepository;
 import org.yusinawa.practice.service.DoctorService;
 
@@ -13,31 +14,33 @@ import java.util.List;
 @AllArgsConstructor
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
 
     @Override
-    public Doctor getById(Long id){
-        return doctorRepository.findById(id).orElseThrow(() -> new RuntimeException("Doctor not found - " + id));
+    public DoctorDTO getById(Long id){
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Doctor not found - " + id));
+        return doctorMapper.toDTO(doctor);
     }
 
     @Override
-    public Doctor create(DoctorDTO dto){
-        return doctorRepository.save(Doctor.builder()
-                .firstName(dto.firstName())
-                .surname(dto.surname())
-                .phone(dto.phone())
-                .login(dto.login())
-                .password(dto.password())
-                .build());
+    public DoctorDTO create(DoctorDTO dto){
+        Doctor doctor = doctorMapper.toEntity(dto);
+        Doctor savedDoctor = doctorRepository.save(doctor);
+        return doctorMapper.toDTO(savedDoctor);
     }
 
     @Override
-    public List<Doctor> getAll(){
-        return doctorRepository.findAll();
+    public List<DoctorDTO> getAll(){
+        List<Doctor> doctors = doctorRepository.findAll();
+        return doctorMapper.toDTOList(doctors);
     }
 
     @Override
-    public Doctor update(Doctor doctor){
-        return doctorRepository.save(doctor);
+    public DoctorDTO update(DoctorDTO dto){
+        Doctor doctor = doctorMapper.toEntity(dto);
+        Doctor updatedDoctor = doctorRepository.save(doctor);
+        return doctorMapper.toDTO(updatedDoctor);
     }
 
     @Override

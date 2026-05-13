@@ -2,10 +2,8 @@ package org.yusinawa.practice.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yusinawa.practice.dto.DoctorDTO;
-import org.yusinawa.practice.entity.Doctor;
 import org.yusinawa.practice.service.DoctorService;
 
 import java.util.List;
@@ -18,23 +16,23 @@ public class DoctorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Doctor create(@RequestBody DoctorDTO dto){
+    public DoctorDTO create(@RequestBody DoctorDTO dto){
         return doctorService.create(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Doctor>> getAll(){
-        return new ResponseEntity<>(doctorService.getAll(), HttpStatus.OK);
+    public List<DoctorDTO> getAll(){
+        return doctorService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Doctor getDoctorById(@PathVariable Long id){
+    public DoctorDTO getDoctorById(@PathVariable Long id){
         return doctorService.getById(id);
     }
 
     @PutMapping
-    public ResponseEntity<Doctor> update(@RequestBody Doctor doctor){
-        return new ResponseEntity<>(doctorService.update(doctor),HttpStatus.OK);
+    public DoctorDTO update(@RequestBody DoctorDTO dto){
+        return doctorService.update(dto);
     }
 
     @DeleteMapping("/{id}")
