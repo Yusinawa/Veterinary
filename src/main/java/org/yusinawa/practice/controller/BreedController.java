@@ -7,24 +7,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.yusinawa.practice.entity.PetType;
-import org.yusinawa.practice.service.PetTypeService;
+import org.yusinawa.practice.entity.Breed;
+import org.yusinawa.practice.service.BreedService;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/pet_type")
-public class PetTypeController {
-    private final PetTypeService petTypeService;
+@RequestMapping("/breed")
+public class BreedController {
+    private final BreedService breedService;
 
     @GetMapping
-    public ResponseEntity<List<PetType>> getAll(){
-        return new ResponseEntity<>(petTypeService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Breed>> getAll(){
+        return new ResponseEntity<>(breedService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{title}")
-    public PetType getByTitle(@PathVariable String title){
-        return petTypeService.getById(title);
+    public Breed getByTitle(@PathVariable String title){
+        return breedService.getById(title);
     }
 }
