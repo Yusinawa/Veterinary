@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.yusinawa.practice.dto.AppointmentDTO;
 import org.yusinawa.practice.entity.Appointment;
+import org.yusinawa.practice.mapper.AppointmentMapper;
 import org.yusinawa.practice.repository.AppointmentRepository;
 import org.yusinawa.practice.service.*;
 
@@ -13,40 +14,39 @@ import java.util.List;
 @AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
-    private final DoctorService doctorService;
-    private final VetServicesService vetServicesService;
-    private final CustomerService customerService;
+    private final AppointmentMapper appointmentMapper;
 
     @Override
-    public Appointment getById(Long id){
-        return appointmentRepository.findById(id)
+    public AppointmentDTO getById(Long id){
+        Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found - " + id));
+        return appointmentMapper.toDTO(appointment);
     }
 
     @Override
-    public Appointment create(AppointmentDTO dto){
-        return appointmentRepository.save(Appointment.builder()
-                .date(dto.date())
-                .status(dto.status())
-                .doctor(doctorService.getById(dto.doctor()))
-                .service(vetServicesService.getById(dto.service()))
-                .customer(customerService.getById(dto.customer()))
-                .build());
+    public AppointmentDTO create(AppointmentDTO dto){
+        Appointment appointment = appointmentMapper.toEntity(dto);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        return appointmentMapper.toDTO(savedAppointment);
     }
 
     @Override
-    public List<Appointment> getAll(){
-        return appointmentRepository.findAll();
+    public List<AppointmentDTO> getAll(){
+        List<Appointment> appointments = appointmentRepository.findAll();
+        return appointmentMapper.toDTOList(appointments);
     }
 
     @Override
-    public List<Appointment> findByDoctorId(Long id){
-        return appointmentRepository.findByDoctorId(id);
+    public List<AppointmentDTO> findByDoctorId(Long id){
+        List<Appointment> appointments = appointmentRepository.findByDoctorId(id);
+        return appointmentMapper.toDTOList(appointments);
     }
 
     @Override
-    public Appointment update(Appointment appointment){
-        return appointmentRepository.save(appointment);
+    public AppointmentDTO update(AppointmentDTO dto){
+        Appointment appointment = appointmentMapper.toEntity(dto);
+        Appointment updatedAppointment = appointmentRepository.save(appointment);
+        return appointmentMapper.toDTO(updatedAppointment);
     }
 
     @Override

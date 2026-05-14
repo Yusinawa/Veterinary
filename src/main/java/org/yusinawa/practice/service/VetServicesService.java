@@ -1,10 +1,10 @@
 package org.yusinawa.practice.service;
 
-import org.yusinawa.practice.entity.VetService;
+import org.yusinawa.practice.dto.VetServiceDTO;
 
 import java.util.List;
 
 public interface VetServicesService {
-    VetService getById(Long id);
-    List<VetService> getAll();
+    VetServiceDTO getById(Long id);
+    List<VetServiceDTO> getAll();
 }

@@ -2,10 +2,8 @@ package org.yusinawa.practice.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yusinawa.practice.dto.CustomerDTO;
-import org.yusinawa.practice.entity.Customer;
 import org.yusinawa.practice.service.CustomerService;
 
 import java.util.List;
@@ -18,23 +16,23 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Customer create(@RequestBody CustomerDTO dto){
+    public CustomerDTO create(@RequestBody CustomerDTO dto){
         return customerService.create(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAll(){
-        return new ResponseEntity<>(customerService.getAll(), HttpStatus.OK);
+    public List<CustomerDTO> getAll(){
+        return customerService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Long id){
+    public CustomerDTO getCustomerById(@PathVariable Long id){
         return customerService.getById(id);
     }
 
     @PutMapping
-    public ResponseEntity<Customer> update(@RequestBody Customer customer){
-        return new ResponseEntity<>(customerService.update(customer), HttpStatus.OK);
+    public CustomerDTO update(@RequestBody CustomerDTO dto){
+        return customerService.update(dto);
     }
 
     @DeleteMapping("/{id}")
